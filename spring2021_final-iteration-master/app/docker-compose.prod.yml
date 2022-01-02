@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  express-api:
+    image: final_iteration_api_prod:lts
+    hostname: final-iteration
+    container_name: ucd-wellness-api
+    build: 
+       context: ./mongo-api/
+       dockerfile: dockerfile.prod
+    environment:
+    - "NODE_ENV=production"
+    - "PORT=${PORT}"
+    - "MONGODB_URL_PROD=${MONGODB_URL_PROD}"
+    - "DEBUG=${DEBUG}"
+    - "JWT_SECRET=${JWT_SECRET}"
+    - "JWT_ACCESS_EXPIRATION_MINUTES=${JWT_ACCESS_EXPIRATION_MINUTES}"
+    - "JWT_REFRESH_EXPIRATION_DAYS=${JWT_REFRESH_EXPIRATION_DAYS}"
+    - "JWT_RESET_PASSWORD_EXPIRATION_MINUTES=${JWT_RESET_PASSWORD_EXPIRATION_MINUTES}"
+    - "JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=${JWT_VERIFY_EMAIL_EXPIRATION_MINUTES}"
+    - "CERTIFICATE=${CERTIFICATE}"
+    ports:
+      - "3005:3005"
+    restart: unless-stopped
